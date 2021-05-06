@@ -21,7 +21,7 @@ function Header({ view }) {
                         <HeaderItem image="PRO" selected={item == "PRO"} />
                     </button>
                 </Link>
-                <Link to="/create">
+                <Link to="/create/0">
                     <button type="button" onClick={() => setItem("CRE")}>
                         <HeaderItem image="CRE" selected={item == "CRE"} />
                     </button>
