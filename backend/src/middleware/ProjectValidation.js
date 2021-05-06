@@ -1,4 +1,3 @@
-const { exists } = require('../model/ProjectModel')
 const ProjectModel = require('../model/ProjectModel')
 const Upper = require('../util/Upper')
 
@@ -8,32 +7,32 @@ const ProjectValidation = async (req, res, next) => {
     const { name, type, description, manager, sub_manager, begin } = body
 
     if (!name) {
-        return res.status(400).json({ error: "[Validation Error}: <name field> is required" })
+        return res.status(400).json({ error: "[Validation Error]: <name field> is required" })
     }
     else if (!type) {
-        return res.status(400).json({ error: "[Validation Error}: <type field> is required" })
+        return res.status(400).json({ error: "[Validation Error]: <type field> is required" })
     } else if (!description) {
-        return res.status(400).json({ error: "[Validation Error}: <description field> is required" })
+        return res.status(400).json({ error: "[Validation Error]: <description field> is required" })
     } else if (!manager) {
-        return res.status(400).json({ error: "[Validation Error}: <manager field> is required" })
+        return res.status(400).json({ error: "[Validation Error]: <manager field> is required" })
     } else if (!sub_manager) {
-        return res.status(400).json({ error: "[Validation Error}: <sub_manager field> is required" })
+        return res.status(400).json({ error: "[Validation Error]: <sub_manager field> is required" })
     } else if (!begin) {
-        return res.status(400).json({ error: "[Validation Error}: <begin field> is required" })
+        return res.status(400).json({ error: "[Validation Error]: <begin field> is required" })
     } else {
         if (req.params.id) {
             exists = await ProjectModel.findOne({
-                "_id": { '$ne': req.params.id },
-                "name": { '$eq': name }
-
+                '_id': { '$ne': req.params.id },
+                'name': { '$eq': name }
             })
-        } else {
+        }
+        else {
             exists = await ProjectModel.findOne({
-                "name": { '$eq': name }
+                'name': { '$eq': name },
             })
         }
         if (exists) {
-            return res.status(400).json({ error: "[Duplication Error}: <title field> already exist" })
+            return res.status(400).json({ error: "[Duplication Error]: <title field> already exist" })
 
         }
         next()

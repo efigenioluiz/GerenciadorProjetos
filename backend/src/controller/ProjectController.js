@@ -6,14 +6,23 @@ const {
 
 class ProjectController {
 
-    async teste(req, res) {
-        res.send("get")
+    async count(req, res) {
+        let condiction = {}
+
+        await ProjectModel.countDocuments(condiction)
+            .then(response => {
+                return res.status(200).json(response)
+            }).catch(error => {
+                return res.status(500).json(error)
+            })
+        // res.send("get")
     }
 
     async create(req, res) {
         const body = Upper.body(req.body)
 
         const project = new ProjectModel(body)
+
         await project.save()
             .then(response => {
                 res.status(200).json(response)
@@ -22,6 +31,7 @@ class ProjectController {
                 res.status(500).json(error)
             })
     }
+
     async read(req, res) {
 
         let condiction = {}
@@ -73,17 +83,16 @@ class ProjectController {
             })
     }
 
-    async count(req, res) {
-        let condiction = {}
+    // async count(req, res) {
+    //     let condiction = {}
 
-        await ProjectModel.countDocuments(condiction)
-            .then(response => {
-                return res.status(200).json(response)
-            }).catch(error => {
-
-                return res.status(500).json(error)
-            })
-    }
+    //     await ProjectModel.countDocuments(condiction)
+    //         .then(response => {
+    //             return res.status(200).json(response)
+    //         }).catch(error => {
+    //             return res.status(500).json(error)
+    //         })
+    // }
 
     async finish(req, res) {
         const date = req.body.finish ? req.body.finish : new Date()
